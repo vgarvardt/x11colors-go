@@ -4,12 +4,33 @@ import (
 	"image/color"
 	"math/rand"
 	"time"
+	"strings"
 )
+
+// Name defines type for color name
+type Name string
+
+// String returns string value for color name
+func (n Name) String() string {
+	return string(n)
+}
+
+// Slugify returns url slugs string value for color name
+func (n Name) Slugify() string {
+	return strings.ToLower(
+		strings.Replace(
+			strings.Replace(
+				strings.Replace(n.String(), ")", "", -1), "(", "", -1,
+			),
+			" ", "-", -1,
+		),
+	)
+}
 
 // X11Color defines single color
 type X11Color struct {
 	// Name is the color name as defined in <X11root>/lib/X11/rgb.txt
-	Name string
+	Name Name
 	// RGBA is the color RGB with A component always set to 0xFF (255)
 	RGBA color.RGBA
 	// CaptionBlack defines the text color that can be used on the current color background:
