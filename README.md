@@ -8,7 +8,7 @@ Use the following command to install the package:
 go get -u github.com/vgarvardt/x11colors-go
 ```
 
-## Features
+## Usage example
 
 All colors are available as package-level variables and can be used in the following manner:
 
@@ -21,19 +21,21 @@ import (
 	"github.com/vgarvardt/x11colors-go"
 )
 
-func main() {
-	someColor := x11colors.RandomSeeded()
-
+func printColorDetails(color x11colors.X11Color) {
 	fmt.Printf(
 		`You are using "%s" color (slugified "%s") with RGB HEX #%02X%02X%02X that should use %s text color when used as background%s`,
-		someColor.Name,
-		someColor.Name.Slugify(),
-		someColor.RGBA.R,
-		someColor.RGBA.G,
-		someColor.RGBA.B,
-		map[bool]string{true: "BLACK", false: "WHITE"}[someColor.CaptionBlack],
+		color.Name,
+		color.Name.Slugify(),
+		color.RGBA.R,
+		color.RGBA.G,
+		color.RGBA.B,
+		map[bool]string{true: "BLACK", false: "WHITE"}[color.CaptionBlack],
 		"\n",
 	)
 }
 
+func main() {
+	printColorDetails(x11colors.GreenX11)
+	printColorDetails(x11colors.RandomSeeded())
+}
 ```
